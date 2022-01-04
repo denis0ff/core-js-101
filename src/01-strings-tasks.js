@@ -198,8 +198,20 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let str1 = '┌';
+  let str2 = '';
+  let str3 = '└';
+  for (let i = 1; i < width - 1; i += 1) str1 += '─';
+  str1 += '┐\n';
+  for (let j = 1; j < height - 1; j += 1) {
+    str2 += '│';
+    for (let i = 1; i < width - 1; i += 1) str2 += ' ';
+    str2 += '│\n';
+  }
+  for (let i = 1; i < width - 1; i += 1) str3 += '─';
+  str3 += '┘\n';
+  return str1 + str2 + str3;
 }
 
 /**
@@ -267,8 +279,9 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = 'A♣,2♣,3♣,4♣,5♣,6♣,7♣,8♣,9♣,10♣,J♣,Q♣,K♣,A♦,2♦,3♦,4♦,5♦,6♦,7♦,8♦,9♦,10♦,J♦,Q♦,K♦,A♥,2♥,3♥,4♥,5♥,6♥,7♥,8♥,9♥,10♥,J♥,Q♥,K♥,A♠,2♠,3♠,4♠,5♠,6♠,7♠,8♠,9♠,10♠,J♠,Q♠,K♠';
+  return cards.split(',').indexOf(value);
 }
 
 module.exports = {
