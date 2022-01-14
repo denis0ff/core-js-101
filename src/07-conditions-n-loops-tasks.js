@@ -6,7 +6,6 @@
  *                                                                                                *
  ************************************************************************************************ */
 
-
 /**
  * Returns the 'Fizz','Buzz' or an original number using the following rules:
  * 1) return original number
@@ -119,7 +118,10 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  return rect1.top + rect1.height > rect2.top && rect1.left + rect1.width > rect2.left;
+  return (
+    rect1.top + rect1.height > rect2.top
+    && rect1.left + rect1.width > rect2.left
+  );
 }
 
 /**
@@ -148,8 +150,10 @@ function doRectanglesOverlap(rect1, rect2) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  if ((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2
+    < (circle.radius ** 2)) return true;
+  return false;
 }
 
 /**
@@ -163,8 +167,13 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const arr = str.split('');
+  let res = null;
+  arr.reverse().forEach((item) => {
+    if ((arr.filter((value) => value === item)).length === 1) res = item;
+  });
+  return res;
 }
 
 /**
@@ -296,8 +305,18 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (str.length % 2 !== 0) return false;
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === '{' || str[i] === '(' || str[i] === '[' || str[i] === '<') stack.push(str[i]);
+    else if (str[i] === '}' && stack[stack.length - 1] === '{') stack.pop();
+    else if (str[i] === ')' && stack[stack.length - 1] === '(') stack.pop();
+    else if (str[i] === ']' && stack[stack.length - 1] === '[') stack.pop();
+    else if (str[i] === '>' && stack[stack.length - 1] === '<') stack.pop();
+    else return false;
+  }
+  return stack.length === 0;
 }
 
 /**
@@ -324,7 +343,6 @@ function toNaryString(num, n) {
   return num.toString(n);
 }
 
-
 /**
  * Returns the common directory path for specified array of full filenames.
  *
@@ -340,7 +358,6 @@ function toNaryString(num, n) {
 function getCommonDirectoryPath(/* pathes */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -363,7 +380,6 @@ function getCommonDirectoryPath(/* pathes */) {
 function getMatrixProduct(/* m1, m2 */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -398,7 +414,6 @@ function getMatrixProduct(/* m1, m2 */) {
 function evaluateTicTacToePosition(/* position */) {
   throw new Error('Not implemented');
 }
-
 
 module.exports = {
   getFizzBuzz,
